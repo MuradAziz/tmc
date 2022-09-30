@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startupFragment">
+
+    <fragment
+        android:id="@+id/startupFragment"
+        android:name="com.example.tmcinsaat.StartupFragment"
+        android:label="fragment_startup"
+        tools:layout="@layout/fragment_startup" >
+        <action
+            android:id="@+id/action_startupFragment_to_chooseFragment"
+            app:destination="@id/chooseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseFragment"
+        android:name="com.example.tmcinsaat.ChooseFragment"
+        android:label="fragment_choose"
+        tools:layout="@layout/fragment_choose" >
+        <action
+            android:id="@+id/action_chooseFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_chooseFragment_self"
+            app:destination="@id/chooseFragment" />
+        <action
+            android:id="@+id/action_chooseFragment_to_buyernewFragment"
+            app:destination="@id/buyernewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.tmcinsaat.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_sellerFragment"
+            app:destination="@id/sellerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.tmcinsaat.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellerFragment"
+        android:name="com.example.tmcinsaat.SellerFragment"
+        android:label="fragment_seller"
+        tools:layout="@layout/fragment_seller" >
+        <action
+            android:id="@+id/action_sellerFragment_to_chooseFragment"
+            app:destination="@id/chooseFragment" />
+        <action
+            android:id="@+id/action_sellerFragment_to_forAddingFragment"
+            app:destination="@id/forAddingFragment" />
+        <action
+            android:id="@+id/action_sellerFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forAddingFragment"
+        android:name="com.example.tmcinsaat.ForAddingFragment"
+        android:label="fragment_for_adding"
+        tools:layout="@layout/fragment_for_adding" >
+        <action
+            android:id="@+id/action_forAddingFragment_to_sellerFragment"
+            app:destination="@id/sellerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.example.tmcinsaat.ui.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" >
+
+        <action
+            android:id="@+id/action_productDetailsFragment_to_sellerFragment"
+            app:destination="@id/sellerFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/buyernewFragment"
+        android:name="com.example.tmcinsaat.ui.BuyernewFragment"
+        android:label="fragment_buyernew"
+        tools:layout="@layout/fragment_buyernew" />
+</navigation>

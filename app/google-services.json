@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "870547101917",
+    "project_id": "tmcinsaatnew",
+    "storage_bucket": "tmcinsaatnew.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870547101917:android:b3e563a4c08a4de3d9a334",
+        "android_client_info": {
+          "package_name": "com.example.tmcinsaat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870547101917-0odaj7r1iblo4u4ro125p1drmq8kc50j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrE1OdxSippdcUfEpiPSKbV7C3f8SbfEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870547101917-0odaj7r1iblo4u4ro125p1drmq8kc50j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
