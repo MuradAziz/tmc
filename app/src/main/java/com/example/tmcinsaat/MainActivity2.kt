@@ -36,9 +36,6 @@ class MainActivity2 : AppCompatActivity() {
             val openWhatsappIntent = Intent(Intent.ACTION_VIEW)
             openWhatsappIntent.data = Uri.parse(url)
             startActivity(openWhatsappIntent)
-//            val callIntent = Intent(Intent.ACTION_DIAL)
-//            callIntent.data = Uri.parse("tel:+994505881884")
-//            startActivity(callIntent)
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
