@@ -7,9 +7,23 @@
     android:orientation="vertical"
     android:background="@drawable/pagebackground"
     tools:context=".SellerFragment">
+    <SearchView
+        android:id="@+id/searchView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:queryHint="For searhing"
+        android:queryBackground="@android:color/transparent"
+        android:iconifiedByDefault="false"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/search_background"
+        tools:targetApi="honeycomb" />
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    >
 
     <ImageView
         android:id="@+id/imgadd"

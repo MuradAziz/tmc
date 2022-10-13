@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -17,7 +18,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_seller.*
+import kotlinx.android.synthetic.main.fragment_seller.recyclerview
 import kotlinx.android.synthetic.main.row_item.*
 
 
@@ -27,10 +30,6 @@ class SellerFragment : Fragment()  {
     private var prodlist=ArrayList<Products>()
     private  var productListAdapter= ProductListAdapter(prodlist)
 
-
-//   private  var productListAdapter= ProductListAdapter(prodlist){
-//       findNavController().navigate(R.id.action_sellerFragment_to_productDetailsFragment)
-//   }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +53,19 @@ class SellerFragment : Fragment()  {
         recyclerview.layoutManager=GridLayoutManager(context, 2)
         recyclerview.adapter=productListAdapter
 
+        searchView2.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                productListAdapter.filter.filter(p0)
+                return false
+            }
+
+        }
+
+        )
         imgadd.setOnClickListener {
             findNavController().navigate(R.id.action_sellerFragment_to_forAddingFragment)
         }
@@ -73,7 +85,6 @@ class SellerFragment : Fragment()  {
                     prodlist.clear()
                     if(!value.isEmpty){
                         val documents=value.documents
-                            // prodlist.clear
                         for(document  in documents){
                             val name=document.get("productname") as String
                             val detail=document.get("description") as String

@@ -20,26 +20,17 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.fragment_for_adding.*
-import kotlinx.android.synthetic.main.fragment_seller.*
-import kotlinx.android.synthetic.main.nav_header_main.*
-import java.sql.Timestamp
-import java.time.LocalDate.now
 import java.util.*
 import kotlin.collections.HashMap
 
 
 class ForAddingFragment : Fragment() {
-    val IMAGE_REQUEST_CODE=100
     lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     var selectedpicture: Uri?=null
     lateinit var auth:FirebaseAuth
     lateinit var firestore:FirebaseFirestore
     lateinit var storage:FirebaseStorage
 
-   /* var productname=etproductname.text.toString()
-    var price=etprice.text.toString()
-    var description=etdescription.text.toString()
-*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,7 +41,6 @@ class ForAddingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_for_adding, container, false)
     }
 
@@ -72,6 +62,8 @@ class ForAddingFragment : Fragment() {
         }
     }
     private fun upload() {
+        progressBar.visibility = View.VISIBLE
+        progressBar.isIndeterminate = true
         val uuid = UUID.randomUUID()
         val imageName = "$uuid.jpg"
 
@@ -87,10 +79,10 @@ class ForAddingFragment : Fragment() {
                     val postMap = HashMap<String, Any>()
                     postMap["downloadUrl"] = downloadUrl
                     postMap["usermail"] = auth.currentUser!!.email!!
-                    postMap.put("productname", etproductname.text.toString())
-                    postMap.put("price", etprice.text.toString())
-                    postMap.put("description", etdescription.text.toString())
-                    postMap.put("date", com.google.firebase.Timestamp.now())
+                    postMap["productname"] = etproductname.text.toString()
+                    postMap["price"] = etprice.text.toString()
+                    postMap["description"] = etdescription.text.toString()
+                    postMap["date"] = com.google.firebase.Timestamp.now()
 
 
                         firestore.collection("Products").add(postMap).addOnSuccessListener {

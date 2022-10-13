@@ -4,7 +4,7 @@
     package="com.example.tmcinsaat">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -30,5 +30,5 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-sdk android:minSdkVersion="9" />
 </manifest>

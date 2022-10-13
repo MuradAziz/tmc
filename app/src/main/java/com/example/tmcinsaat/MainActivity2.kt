@@ -1,19 +1,20 @@
 package com.example.tmcinsaat
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.example.tmcinsaat.databinding.ActivityMain2Binding
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.google.android.material.navigation.NavigationView
+
 
 class MainActivity2 : AppCompatActivity() {
 
@@ -29,8 +30,15 @@ class MainActivity2 : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+
+            val url = "https://api.whatsapp.com/send?phone=+994505881884"
+
+            val openWhatsappIntent = Intent(Intent.ACTION_VIEW)
+            openWhatsappIntent.data = Uri.parse(url)
+            startActivity(openWhatsappIntent)
+//            val callIntent = Intent(Intent.ACTION_DIAL)
+//            callIntent.data = Uri.parse("tel:+994505881884")
+//            startActivity(callIntent)
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView

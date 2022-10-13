@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_product_details.*
 
 
-class ProductDetailsFragment : Fragment() {
+class BlankFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,22 +21,22 @@ class ProductDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_product_details, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_blank, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            val nameText=arguments?.getString("Pname")
-            val priceText=arguments?.getString("Pprice")
-            val detailText=arguments?.getString("Pdetail")
-            val image=arguments?.getString("Purl")
-            detailsname.text="Product name: "+nameText
-            detailscost.text="Product price: "+ priceText
-            detailsdescription.text="Product description: "+detailText
-            Picasso.get().load(image).into(detailstimage)
-
+        val nameText = arguments?.getString("Pname")
+        val priceText = arguments?.getString("Pprice")
+        val detailText = arguments?.getString("Pdetail")
+        val image = arguments?.getString("Purl")
+        detailsname.text = "Product name: " + nameText
+        detailscost.text = "Product price: " + priceText
+        detailsdescription.text = "Product description: " + detailText
+        Picasso.get().load(image).into(detailstimage)
 
 
     }
 }
+

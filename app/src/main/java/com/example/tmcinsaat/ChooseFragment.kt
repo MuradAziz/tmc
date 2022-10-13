@@ -25,7 +25,7 @@ class ChooseFragment : androidx.fragment.app.Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnbuyer.setOnClickListener {
-            findNavController().navigate(R.id.action_chooseFragment_to_buyernewFragment)
+            findNavController().navigate(R.id.action_chooseFragment_to_mainActivity2)
         }
         btnseller.setOnClickListener{
             findNavController().navigate(R.id.action_chooseFragment_to_loginFragment)

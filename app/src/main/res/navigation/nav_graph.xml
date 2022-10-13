@@ -26,8 +26,8 @@
             android:id="@+id/action_chooseFragment_self"
             app:destination="@id/chooseFragment" />
         <action
-            android:id="@+id/action_chooseFragment_to_buyernewFragment"
-            app:destination="@id/buyernewFragment" />
+            android:id="@+id/action_chooseFragment_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -83,11 +83,14 @@
         <action
             android:id="@+id/action_productDetailsFragment_to_sellerFragment"
             app:destination="@id/sellerFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_self"
+            app:destination="@id/productDetailsFragment" />
 
     </fragment>
-    <fragment
-        android:id="@+id/buyernewFragment"
-        android:name="com.example.tmcinsaat.ui.BuyernewFragment"
-        android:label="fragment_buyernew"
-        tools:layout="@layout/fragment_buyernew" />
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="com.example.tmcinsaat.MainActivity2"
+        android:label="app_bar_main"
+        tools:layout="@layout/app_bar_main" />
 </navigation>
