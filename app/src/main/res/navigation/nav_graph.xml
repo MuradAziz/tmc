@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/sellerFragment"
-        android:name="com.example.tmcinsaat.SellerFragment"
+        android:name="com.example.tmcinsaat.ui.SellerFragment"
         android:label="fragment_seller"
         tools:layout="@layout/fragment_seller" >
         <action

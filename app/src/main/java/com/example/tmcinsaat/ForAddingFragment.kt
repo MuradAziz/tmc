@@ -1,10 +1,12 @@
 package com.example.tmcinsaat
 
 import android.app.Activity.RESULT_OK
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -85,7 +87,8 @@ class ForAddingFragment : Fragment() {
                     postMap["date"] = com.google.firebase.Timestamp.now()
 
 
-                        firestore.collection("Products").add(postMap).addOnSuccessListener {
+                        firestore.collection("Products").add(postMap).addOnSuccessListener { documentReference ->
+                            Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
                             findNavController().navigate(R.id.action_forAddingFragment_to_sellerFragment)
                         }.addOnFailureListener {
                             Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG).show()

@@ -31,7 +31,6 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
 
     }
@@ -66,8 +65,8 @@ class LoginFragment : Fragment() {
         }
 
         btnlogin.setOnClickListener { it ->
-            var email = etgiriskullaniciadi.text.toString()
-            var pasword = etgirisparol.text.toString()
+            val email = etgiriskullaniciadi.text.toString()
+            val pasword = etgirisparol.text.toString()
             if (email.equals("") || pasword.equals("")) {
                 Snackbar.make(it,"eMail needed", Snackbar.LENGTH_LONG).show()
 

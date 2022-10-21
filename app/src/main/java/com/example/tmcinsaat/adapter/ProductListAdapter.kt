@@ -1,7 +1,6 @@
 
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,30 +18,31 @@ import com.example.tmcinsaat.R
 import com.example.tmcinsaat.downloadUrl
 import com.example.tmcinsaat.model.Products
 import com.example.tmcinsaat.placeHolderDrawble
-import com.google.firebase.firestore.FieldValue
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_item.view.*
 import kotlinx.android.synthetic.main.row_item.view.productcost
 import kotlinx.android.synthetic.main.row_item.view.productdescription
 import kotlinx.android.synthetic.main.row_item.view.productimage
 import kotlinx.android.synthetic.main.row_item.view.productname
-import kotlinx.android.synthetic.main.row_item_buyer.view.*
-import kotlinx.coroutines.NonDisposableHandle.parent
 import java.util.*
-import java.util.zip.Inflater
 import kotlin.collections.ArrayList
+import kotlin.coroutines.coroutineContext
 
 class ProductListAdapter(private val products: ArrayList<Products>):
     RecyclerView.Adapter<ProductListAdapter.PostHolder>(), Filterable {
     var countryFilterList = ArrayList<Products>()
+    lateinit var documentSnapshot: DocumentSnapshot
+    private lateinit var auth:FirebaseAuth
     init {
         countryFilterList = products
     }
 
-    private var db:FirebaseFirestore?=null
+    private lateinit var db:FirebaseFirestore
      class PostHolder(val view:View): RecyclerView.ViewHolder(view) {
      }
 
@@ -77,7 +77,9 @@ class ProductListAdapter(private val products: ArrayList<Products>):
 
         }
         holder.itemView.mMenus.setOnClickListener {
+            db = Firebase.firestore
             val popupMenus = PopupMenu(holder.itemView.context, it)
+            auth=FirebaseAuth.getInstance()
             popupMenus.inflate(R.menu.menu)
             popupMenus.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -89,7 +91,7 @@ class ProductListAdapter(private val products: ArrayList<Products>):
                             .setView(v)
                             .setPositiveButton("OK") { dialog, _ ->
                                 products[it.itemId].productname = name.text.toString()
-                                db!!.collection("Products").document("Products")
+                                db.collection("Products").document("Products")
                                     .update(mapOf("productname" to name))
                                 notifyDataSetChanged()
                                 Toast.makeText(
@@ -112,9 +114,20 @@ class ProductListAdapter(private val products: ArrayList<Products>):
                             .setIcon(R.drawable.delete)
                             .setMessage("Are you sure to delete?")
                             .setPositiveButton("Yes") { dialog, _ ->
-                           db?.collection("Products")!!.document().delete()
-                               .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-                               .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                               // delete(productName)
+                                val doc = db.collection("Products").document().id
+//                                val doc=db.collection("Products").document(it.itemId.toString())
+//
+//                                Toast.makeText(
+//                                    holder.itemView.context,
+//                                    doc.toString(),
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+
+                                db.collection("Products").document()
+                                   .delete()
+                                   .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                                    .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
 
                                 notifyDataSetChanged()
                                 Toast.makeText(
@@ -144,6 +157,23 @@ class ProductListAdapter(private val products: ArrayList<Products>):
 
     }
 
+    private fun delete(productName: String) {
+        db.collection("Products").whereEqualTo("productname", productName).get().addOnCompleteListener(
+            OnCompleteListener {task->
+                if(task.isSuccessful && task.result.isEmpty){
+                    documentSnapshot= task.result.documents[0]
+                    var docId=documentSnapshot.id
+                    db.collection("Products").document(docId).delete()
+                        .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+
+                }
+            }
+        )
+
+
+    }
+
 
     override fun getItemCount(): Int {
         return countryFilterList.size
@@ -152,8 +182,8 @@ class ProductListAdapter(private val products: ArrayList<Products>):
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
-                if (charSearch.isEmpty()) {
-                    countryFilterList = products
+                countryFilterList = if (charSearch.isEmpty()) {
+                    products
                 } else {
                     val resultList = ArrayList<Products>()
                     for (row in products) {
@@ -163,7 +193,7 @@ class ProductListAdapter(private val products: ArrayList<Products>):
                             resultList.add(row)
                         }
                     }
-                    countryFilterList = resultList
+                    resultList
                 }
                 val filterResults = FilterResults()
                 filterResults.values = countryFilterList

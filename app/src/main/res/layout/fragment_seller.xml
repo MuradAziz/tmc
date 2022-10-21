@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/pagebackground"
-    tools:context=".SellerFragment">
+    tools:context=".ui.SellerFragment">
     <SearchView
         android:id="@+id/searchView2"
         android:layout_width="match_parent"
